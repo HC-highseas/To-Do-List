@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.js"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Arimo:400 ,   700|Roboto + Slab:400 ,   700");
+
+        :root {
+            font-size: calc(0.5vw  +  1vh);
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 420px;
+            background: url('https://static.vecteezy.com/system/resources/previews/041/164/235/non_2x/top-view-work-desk-office-workspace-photo.jpg') no-repeat center center / cover;
+            color: #fff;
+            height: 100vh;
+            scale: 0.1;
+            animation: zoom-in 1s normal forwards ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10vh;
+            left: -10vh;
+            width: 120%;
+            height: 120%;
+            background: rgba(0 ,    0 ,    0 ,    0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        body * {
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes zoom-in {
+            0% {
+                scale: 0.1;
+            }
+
+            100% {
+                scale: 1;
+            }
+        }
+
+        h1 ,   
+        h4 {
+            font-family: "Arimo" ,    sans-serif;
+            line-height: 1.3;
+        }
+
+        header h1 {
+            font-size: 5.4rem;
+            margin: 4rem 0 0 0;
+        }
+
+        span {
+            font-size: 3rem;
+        }
+
+        p {
+            font-family: "Roboto Slab" ,    serif;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        a ,   
+        a:link ,   
+        a:active ,   
+        a:visited {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: #000013 0.16rem solid;
+        }
+
+        a:hover {
+            color: #000013;
+            border-bottom: #0066aa 0.16rem solid;
+        }
+
+        header ,   
+        footer {
+            width: 40rem;
+            margin: 2rem auto;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .add_task_con {
+            width: 50%;
+            justify-content: space-between;
+            display: flex;
+            margin: 0 auto;
+            padding: 10px;
+            position: relative;
+            background: #0e1726;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid #1b2e4b;
+            box-shadow: 18px 20px 10.3px -23px rgb(0 0 0 / 15%);
+            font-size: 18px;
+        }
+
+        .main_con {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+        }
+
+        .columns {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: start;
+            -ms-flex-align: start;
+            align-items: flex-start;
+            margin: 1.6rem auto;
+            width: 80%;
+            color: #bfc9d4;
+        }
+
+        .col {
+            width: 100%;
+            flex: 1;
+            margin: 0 10px;
+            position: relative;
+            background: #0e1726;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid #1b2e4b;
+            box-shadow: 18px 20px 10.3px -23px rgb(0 0 0 / 15%);
+        }
+
+        .col_head {
+            font-size: 17px;
+            border-bottom: #000013 0.2rem solid;
+        }
+
+        .col_head h4 {
+            text-align: center;
+        }
+
+        .task-list {
+            min-height: 3rem;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        .col_btn {
+            text-align: center;
+            padding: 0.1rem;
+        }
+
+        .btn {
+            font-family: "Arimo" ,    sans-serif;
+            font-weight: 700;
+            border: #000013 0.14rem solid;
+            border-radius: 0.2rem;
+            color: #000013;
+            padding: 0.6rem 1rem;
+            margin-bottom: 0.3rem;
+            cursor: pointer;
+        }
+
+        .d_btn {
+            background-color: #ff4444;
+            margin: 0.1rem auto 0.6rem auto;
+        }
+
+        .d_btn:hover {
+            background-color: #fa7070;
+        }
+
+        .add_col {
+            background-color: #ffcb1e;
+            padding: 0 1rem;
+            height: 3.8rem;
+            width: 10rem;
+            margin-top: 0.6rem;
+        }
+
+        .add_col:hover {
+            background-color: #ffdd6e;
+        }
+
+        .task {
+            background: #1b2e4b;
+            margin: 0.4rem;
+            height: 4rem;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            list-style-type: none;
+            transition: all 0.3s;
+            cursor: move;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        #taskText {
+            border: #161515 0.15rem solid;
+            border-radius: 0.2rem;
+            text-align: center;
+            font-family: "Roboto Slab" ,    serif;
+            height: 4rem;
+            width: 90%;
+            margin: auto 0.8rem auto 0.1rem;
+            background: #1b2e4b;
+            color: #bfc9d4 !important;
+        }
+
+        .task p {
+            margin: auto;
+        }
+
+
+        .gu-mirror {
+            position: fixed !important;
+            margin: 0 !important;
+            z-index: 9999 !important;
+            opacity: 0.8;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+            filter: alpha(opacity=80);
+        }
+
+        .gu-hide {
+            display: none !important;
+        }
+
+        .gu-unselectable {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+
+        .gu-transit {
+            opacity: 0.2;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+            filter: alpha(opacity=20);
+            border: 1px solid #00ff7f !important;
+            box-shadow: 1px 0 4px 1px #00ff7f !important;
+            transform: scale(1.02);
+        }
+
+        .gu-mirror {
+            border: 1px solid #00ff7f !important;
+            box-shadow: 1px 0 4px 1px #00ff7f !important;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Daily ToDo</h1>
+    </header>
+
+    <div class="add_task_con">
+        <input type="text" maxlength="12" id="taskText" placeholder="New Activity..."
+            onkeydown="if (event.keyCode == 13) document.getElementById('add').click()">
+        <button id="add" class="btn add_col" onclick="addTask()">Add</button>
+    </div>
+
+    <div class="main_con">
+        <ul class="columns">
+
+            <li class="col todo_col">
+                <div class="col_head">
+                    <h4>🌟 To Do</h4>
+                </div>
+                <ul class="task-list" id="todo">
+                    <li class="task">
+                        <p>Exercise</p>
+                    </li>
+                    <li class="task">
+                        <p>Cook</p>
+                    </li>
+                    <li class="task">
+                        <p>Clean</p>
+                    </li>
+                    <li class="task">
+                        <p>Read</p>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="col doing-column">
+                <div class="col_head">
+                    <h4>💫 Doing</h4>
+                </div>
+                <ul class="task-list" id="doing">
+                    <li class="task">
+                        <p>Meditation</p>
+                    </li>
+                    <li class="task">
+                        <p>Work</p>
+                    </li>
+                    <li class="task">
+                        <p>Gardening</p>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="col done_col">
+                <div class="col_head">
+                    <h4>🏆 Done</h4>
+                </div>
+                <ul class="task-list" id="done">
+                    <li class="task">
+                        <p>Yoga</p>
+                    </li>
+                    <li class="task">
+                        <p>Shopping</p>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="col trash_col">
+                <div class="col_head">
+                    <h4>❌ Trash</h4>
+                </div>
+                <ul class="task-list" id="trash">
+                    <li class="task">
+                        <p>Emails</p>
+                    </li>
+                    <li class="task">
+                        <p>TV</p>
+                    </li>
+                </ul>
+                <div class="col_btn">
+                    <button class="btn d_btn" onclick="emptyTrash()">Delete</button>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</body>
+<script>
+    dragula([
+        document.getElementById("todo") ,   
+        document.getElementById("doing") ,   
+        document.getElementById("done") ,   
+        document.getElementById("trash")
+    ]);
+    removeOnSpill: false
+        .on("drag" ,    function (el) {
+            el.className.replace("ex-moved" ,    "");
+        })
+        .on("drop" ,    function (el) {
+            el.className  += "ex-moved";
+        })
+        .on("over" ,    function (el ,    container) {
+            container.className  += "ex-over";
+        })
+        .on("out" ,    function (el ,    container) {
+            container.className.replace("ex-over" ,    "");
+        });
+
+    function addTask() {
+        var inputTask = document.getElementById("taskText").value;
+        document.getElementById("todo").innerHTML  +=
+            "<li class='task'><p>"  +  inputTask  +  "</p></li>";
+        document.getElementById("taskText").value = "";
+    }
+
+    function emptyTrash() {
+        document.getElementById("trash").innerHTML = "";
+    }
+
+</script>
+
+</html>
